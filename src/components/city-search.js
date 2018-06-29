@@ -1,37 +1,14 @@
 import React from 'react';
+import { Button, Row, Icon, Input } from 'react-materialize';
+import  "./city-search.css";
 
-const CitySearch = ({cityInput, countryInput,  onChange, onSubmit}) =>{
-  let input;
-  return(
-      <div>
-    <span>City, State</span> 
-  <form onSubmit={onSubmit}>
-    <input 
-      type="text" 
-      value={cityInput}
-      name="city"
-      onChange={onChange}
-      placeholder="e.g. San Francisco, CA"
-      ref={(node) => input = node}
-      required
-    />
-    <span>Country Code </span> 
-    <input 
-      type="text" 
-      value={countryInput}
-      name="country"
-      onChange={onChange}
-      placeholder="e.g. US"
-      ref={(node) => input = node}
-      required
-    />
-    
-  <button type="submit">
-    Submit
-  </button>
-  </form>
-  </div>
-  )
-}
+const CitySearch = ({cityInput, countryInput, onChange, onSubmit}) =>
+<form className="grey-border-shadow" onSubmit={onSubmit}>
+  <Row>
+    <Input s={12} placeholder="e.g. San Francisco, CA" type="text" name="city" label="City,State" validate={true} onChange={onChange} value={cityInput}  icon="location_city" required/>
+    <Input s={12} placeholder="e.g. US" type="text" name="country" label="Country" validate={true} onChange={onChange} value={countryInput} icon="map" required/>
+    <Button type='submit' waves='light'>Submit<Icon right>send</Icon></Button>
+  </Row>
+</form>
 
 export default CitySearch;
