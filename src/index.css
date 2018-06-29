@@ -3,3 +3,12 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.grey-border-shadow{
+  border-style: solid !important;
+  border-color: rgba(51, 122, 183, 0.10) !important;
+  border-width: thin !important;
+  border-radius: 5px !important;
+  box-shadow: 0 12px 12px 0 #D3D3D3 !important;
+  box-sizing: border-box !important; 
+}
