@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CitySearch from './city-search';
+import SearchForm from './search-form';
 import Link from './link';
 import Loading from './loading';
 import fetch from 'isomorphic-fetch';
@@ -21,7 +21,7 @@ class HistoricalWeather extends Component {
     this.state = {
       city: "",
       country: "",
-      citySubmitted: null,
+      formSubmitted: null,
       link: null,
       error: null,
     };
@@ -39,16 +39,16 @@ class HistoricalWeather extends Component {
   }
 
   fetchCityHistoricalWeather(cityTerm, countryTerm) {
-    this.setState({ citySubmitted: true });
+    this.setState({ formSubmitted: true });
     let url = `${PATH_BASE}?${PARAM_CITY}${encodeURIComponent(cityTerm)}&${PARAM_COUNTRY}${countryTerm}&${PARAM_START_DATE}${"2018-06-27"}&${PARAM_END_DATE}${"2018-06-28"}&${PARAM_UNITS}${"I"}&${PARAM_KEY}${process.env.REACT_APP_WEATHERBIT_APIKEY}`
-    
     return fetch(url)
       .then(response => {
-        if (!response.ok) {
-        this.handleErrors(response);
-        return "error"
+        if (!response.ok) {     
+        console.error(response);
+         return "error";
         }else{
-        return response.json();
+          if (response.status == 204) return "error"
+          return response.json(); 
         }
       }).catch(this.handleErrors)
   }
@@ -74,6 +74,7 @@ class HistoricalWeather extends Component {
   }
 
   onInputChange(event){
+    console.log(event.target);
     this.setState({ [event.target.name]: event.target.value});
   }
 
@@ -110,8 +111,12 @@ class HistoricalWeather extends Component {
     this.setState({ isLoading: true });
     const {city, country} = this.state;
     let result = await this.fetchCityHistoricalWeather(city, country);  
+    console.log(result);
     if (result === "error"){
-      this.setState({error: "There was an error getting data from Weatherbit :("});
+      this.setState({
+        error: "There was an error getting data from Weatherbit :(", 
+        isLoading: false
+      });
     }
     else{
       let historicalData = this.transformData(result);
@@ -141,9 +146,9 @@ class HistoricalWeather extends Component {
       e = reason.statusText;
     }
     else if (reason.error === 'popup_closed_by_user'){
-      e =  'Oh nooooo. We are unable to update the Google sheet without Google SignOn';
+      e =  'Oh nooooo. We are unable to update the Google sheet without your authentication';
     }
-    else if (reason.result.error !== 'undefined'){
+    else if (reason.result.error){
       e = reason.result.error.message;
     }
     this.setState({ 
@@ -183,17 +188,17 @@ class HistoricalWeather extends Component {
       error,
       isLoading,
       link,
-      citySubmitted 
+      formSubmitted 
     } = this.state;
 
     return (
         <div className="interactions">
-          {!citySubmitted ?
-            <CitySearch 
-            city={city} 
-            country={country}
-            onChange={this.onInputChangee}
-            onSubmit={this.onSearchSubmit}
+          {!formSubmitted ?
+            <SearchForm
+              city={city} 
+              country={country}
+              onChange={this.onInputChange}
+              onSubmit={this.onSearchSubmit}
             />
             :
             null 
@@ -201,10 +206,12 @@ class HistoricalWeather extends Component {
           {isLoading ? 
             <Loading /> 
             :
-            <Link
-              link = {link}
-              error = {error}
-            />
+            <div className="message ">
+              <Link
+                link = {link}
+                error = {error}
+              />
+            </div>
           }
         </div>
     );
