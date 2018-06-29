@@ -73,3 +73,11 @@ REACT_APP_GOOGLE_CLIENTID, respectively
 7) Visit http://localhost:3000/
 
 Enjoy! :blue_heart:
+
+
+## TODOs
+- Use local storage to cache cities already requested on the same day 
+- Add date range picker based on weather api historical data availabiliy
+- Add more error handling
+- Add more data points
+
