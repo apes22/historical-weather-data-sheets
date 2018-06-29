@@ -9,7 +9,9 @@ class App extends Component {
       //create a header component
       <div className="App">
         <Header />
-        <HistoricalWeather/>
+        <div className="page">
+          <HistoricalWeather/>
+        </div>
       </div>
     );
   }
