@@ -18,9 +18,9 @@ To retrieve historical weather data for a particular city, submit city and count
 
 ## Example Output
  
-   You can check out the new data here: https://docs.google.com/spreadsheets/d/1plgIyhW093-gRVzZwIO8L_ToTGcAr7xQ9AzDOz2qO0E/edit?usp=sharing
+   You can check out the new data in this shared link: https://docs.google.com/spreadsheets/d/1plgIyhW093-gRVzZwIO8L_ToTGcAr7xQ9AzDOz2qO0E/edit?usp=sharing
   
- A new tab in the Googlesheet has been created to add the new data:
+ A new tab in the Googlesheet has been created for the new data:
  
  *Note: The free plan for Weatherbit Historical Weather API only allows 1 days worth of historical weather data (Similar issue with other weather services). Ideally, with a paid service, we would be able to export years worth of data.
  
