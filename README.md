@@ -5,6 +5,31 @@ This service retrieves historical weather data for a submitted city and exports 
 
 A FrontEnd Javascript application built using [React](https://reactjs.org/). This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+
+## Example Usage
+
+To retrieve historical weather data for a particular city, submit city and country:
+
+  <kbd>
+     <img src="https://res.cloudinary.com/maribelduran/image/upload/c_scale,w_500/v1530273780/Weather_fillForm.png"> 
+  </kbd>
+
+
+## Example Output
+ 
+   You can check out the new data here: https://docs.google.com/spreadsheets/d/1plgIyhW093-gRVzZwIO8L_ToTGcAr7xQ9AzDOz2qO0E/edit?usp=sharing
+  
+ A new tab in the Googlesheet has been created to add the new data:
+ 
+ *Note: The free plan for Weatherbit Historical Weather API only allows 1 days worth of historical weather data (Similar issue with other weather services). Ideally, with a paid service, we would be able to export years worth of data.
+ 
+ <kbd>
+     <img src="http://res.cloudinary.com/maribelduran/image/upload/c_scale,w_500/v1530273784/HistoricalWeatherGoogleSpreadhseet_o7b7mt.png"> 
+ </kbd>
+  
+
+
 ## To Run Project Locally
 
 ### Prerequisites
@@ -48,3 +73,11 @@ REACT_APP_GOOGLE_CLIENTID, respectively
 7) Visit http://localhost:3000/
 
 Enjoy! :blue_heart:
+
+
+## TODOs
+- Use local storage to cache cities already requested on the same day 
+- Add date range picker based on weather api historical data availabiliy
+- Add more error handling
+- Add more data points
+
