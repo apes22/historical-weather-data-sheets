@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CitySearch from './city-search';
 import Link from './link';
+import Loading from './loading';
 import fetch from 'isomorphic-fetch';
 
 const PATH_BASE = 'https://api.weatherbit.io/v2.0/history/daily';
@@ -28,8 +29,8 @@ class HistoricalWeather extends Component {
     this.fetchCityHistoricalWeather = this.fetchCityHistoricalWeather.bind(this);
     this.requestCityHistoricalData = this.requestCityHistoricalData.bind(this);
     this.transformData = this.transformData.bind(this);
-    this.onCitySearchSubmit = this.onCitySearchSubmit.bind(this);
-    this.onCityInputChange = this.onCityInputChange.bind(this);
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
     this.initClient = this.initClient.bind(this);
     this.postToGoogleSheet = this.postToGoogleSheet.bind(this);
     this.checkGoogleSignInStatus = this.checkGoogleSignInStatus.bind(this);
@@ -39,7 +40,6 @@ class HistoricalWeather extends Component {
 
   fetchCityHistoricalWeather(cityTerm, countryTerm) {
     this.setState({ citySubmitted: true });
-
     let url = `${PATH_BASE}?${PARAM_CITY}${encodeURIComponent(cityTerm)}&${PARAM_COUNTRY}${countryTerm}&${PARAM_START_DATE}${"2018-06-27"}&${PARAM_END_DATE}${"2018-06-28"}&${PARAM_UNITS}${"I"}&${PARAM_KEY}${process.env.REACT_APP_WEATHERBIT_APIKEY}`
     
     return fetch(url)
@@ -68,18 +68,13 @@ class HistoricalWeather extends Component {
     return data; 
   }
 
-  onCitySearchSubmit(event){
+  onSearchSubmit(event){
     this.handleClientLoad(); 
     event.preventDefault();
   }
 
-  onCityInputChange(event){
-    if (event.target.name === "city"){
-      this.setState({ city: event.target.value})
-    }
-    else if (event.target.name === "country"){
-      this.setState({ country: event.target.value})
-    } 
+  onInputChange(event){
+    this.setState({ [event.target.name]: event.target.value});
   }
 
   handleClientLoad() {
@@ -148,7 +143,7 @@ class HistoricalWeather extends Component {
     else if (reason.error === 'popup_closed_by_user'){
       e =  'Oh nooooo. We are unable to update the Google sheet without Google SignOn';
     }
-    else if (reason.result.error){
+    else if (reason.result.error !== 'undefined'){
       e = reason.result.error.message;
     }
     this.setState({ 
@@ -192,20 +187,19 @@ class HistoricalWeather extends Component {
     } = this.state;
 
     return (
-      <div className="page">
         <div className="interactions">
           {!citySubmitted ?
             <CitySearch 
             city={city} 
             country={country}
-            onChange={this.onCityInputChange}
-            onSubmit={this.onCitySearchSubmit}
+            onChange={this.onInputChangee}
+            onSubmit={this.onSearchSubmit}
             />
             :
             null 
           }
           {isLoading ? 
-            <div>isLoading...</div>
+            <Loading /> 
             :
             <Link
               link = {link}
@@ -213,7 +207,6 @@ class HistoricalWeather extends Component {
             />
           }
         </div>
-      </div>
     );
   }
 }
