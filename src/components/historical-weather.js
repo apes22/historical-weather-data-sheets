@@ -39,10 +39,6 @@ class HistoricalWeather extends Component {
 
   fetchCityHistoricalWeather(cityTerm, countryTerm) {
     this.setState({ citySubmitted: true });
-    //get current date as end date
-    //get day before as start date
-    let startDate = '';
-    let endDate = '';
 
     let url = `${PATH_BASE}?${PARAM_CITY}${encodeURIComponent(cityTerm)}&${PARAM_COUNTRY}${countryTerm}&${PARAM_START_DATE}${"2018-06-27"}&${PARAM_END_DATE}${"2018-06-28"}&${PARAM_UNITS}${"I"}&${PARAM_KEY}${process.env.REACT_APP_WEATHERBIT_APIKEY}`
     
