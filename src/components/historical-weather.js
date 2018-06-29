@@ -47,7 +47,7 @@ class HistoricalWeather extends Component {
         console.error(response);
          return "error";
         }else{
-          if (response.status == 204) return "error"
+          if (response.status === 204) return "error"
           return response.json(); 
         }
       }).catch(this.handleErrors)
@@ -74,7 +74,6 @@ class HistoricalWeather extends Component {
   }
 
   onInputChange(event){
-    console.log(event.target);
     this.setState({ [event.target.name]: event.target.value});
   }
 
@@ -110,8 +109,7 @@ class HistoricalWeather extends Component {
   async requestCityHistoricalData() {
     this.setState({ isLoading: true });
     const {city, country} = this.state;
-    let result = await this.fetchCityHistoricalWeather(city, country);  
-    console.log(result);
+    let result = await this.fetchCityHistoricalWeather(city, country);
     if (result === "error"){
       this.setState({
         error: "There was an error getting data from Weatherbit :(", 
@@ -163,7 +161,7 @@ class HistoricalWeather extends Component {
     };
     return window.gapi.client.sheets.spreadsheets.batchUpdate(params,
     {
-        "requests": [{ "addSheet": { "properties": { "index": 0 }}}]}
+      "requests": [{ "addSheet": { "properties": { "index": 0 }}}]}
     );
   }
 
@@ -192,28 +190,28 @@ class HistoricalWeather extends Component {
     } = this.state;
 
     return (
-        <div className="interactions">
-          {!formSubmitted ?
-            <SearchForm
-              city={city} 
-              country={country}
-              onChange={this.onInputChange}
-              onSubmit={this.onSearchSubmit}
-            />
-            :
-            null 
-          }
-          {isLoading ? 
-            <Loading /> 
-            :
-            <div className="message ">
-              <Link
-                link = {link}
-                error = {error}
-              />
-            </div>
-          }
-        </div>
+      <div className="interactions">
+        {!formSubmitted ?
+          <SearchForm
+            city={city} 
+            country={country}
+            onChange={this.onInputChange}
+            onSubmit={this.onSearchSubmit}
+          />
+          :
+          null 
+        }
+        {isLoading ? 
+          <Loading /> 
+          :
+          <div className="message">
+          <Link
+            link = {link}
+            error = {error}
+          />
+          </div>
+        }
+      </div>
     );
   }
 }
