@@ -6,9 +6,9 @@ const SunIcon = () =>
 </div>
 
 const Header = () =>
-  <header className="App-header">
-    <SunIcon />
-      <h1 className="App-title">Welcome to the Historical Weather Sheet App</h1>
-  </header>
+<header className="App-header">
+  <SunIcon />
+  <h1 className="App-title">Welcome to the Historical Weather Sheet App</h1>
+</header>
 
 export default Header;

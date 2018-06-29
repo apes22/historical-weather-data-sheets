@@ -6,7 +6,6 @@ import './App.css';
 class App extends Component {
   render() {
     return (
-      //create a header component
       <div className="App">
         <Header />
         <div className="page">
