@@ -2,16 +2,12 @@ import React from 'react';
 import  "./link.css";
 
 const Link = ({error, link}) => {
-  if (error) {
-    return <div className="message grey-border-shadow"><p>{error}</p></div>
-  }
+  if (error) return <p>{error}</p>
   return (
     link ?
-     <div  className="message grey-border-shadow">
-      <h3>You can check out the new data here: <a href={link}>{link}</a></h3>
-      </div>
-        :
-      null  
+    <h6>You can check out the new data here: <a href={link}>{link}</a></h6>
+    :
+    null  
   )
 }
 
